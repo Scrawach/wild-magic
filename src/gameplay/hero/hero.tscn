@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://dxxxmjm06obta"]
+
+[ext_resource type="Script" uid="uid://ceawrn7dedfhq" path="res://gameplay/hero/hero.gd" id="1_x1143"]
+[ext_resource type="Script" uid="uid://bt5h3xv8djrc3" path="res://infrastructure/states/state_machine.gd" id="2_yer6i"]
+[ext_resource type="Script" uid="uid://d1remwgex0e1x" path="res://gameplay/hero/input/player_input.gd" id="3_14oge"]
+[ext_resource type="Script" uid="uid://cd6gd2tp3e5rx" path="res://gameplay/hero/states/hero_movment_state.gd" id="3_lkv0r"]
+[ext_resource type="Script" uid="uid://ddqf4deh1y3f8" path="res://gameplay/hero/states/hero_cast_state.gd" id="4_drp30"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8eafk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8eafk"]
+
+[node name="Hero" type="CharacterBody3D"]
+script = ExtResource("1_x1143")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_8eafk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_8eafk")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_yer6i")
+initial_state = NodePath("HeroMovementState")
+metadata/_custom_type_script = "uid://bt5h3xv8djrc3"
+
+[node name="HeroMovementState" type="Node" parent="StateMachine" node_paths=PackedStringArray("hero", "input")]
+script = ExtResource("3_lkv0r")
+hero = NodePath("../..")
+input = NodePath("../../PlayerInput")
+metadata/_custom_type_script = "uid://cd6gd2tp3e5rx"
+
+[node name="HeroCastState" type="Node" parent="StateMachine" node_paths=PackedStringArray("input")]
+script = ExtResource("4_drp30")
+input = NodePath("../../PlayerInput")
+metadata/_custom_type_script = "uid://ddqf4deh1y3f8"
+
+[node name="PlayerInput" type="Node" parent="."]
+script = ExtResource("3_14oge")
+metadata/_custom_type_script = "uid://d1remwgex0e1x"

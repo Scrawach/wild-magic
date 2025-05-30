@@ -23,3 +23,6 @@ func enter(target_state: Script) -> void:
 	var next_state: State = states[target_state]
 	current_state = next_state
 	current_state.enter()
+
+func _physics_process(delta: float) -> void:
+	current_state.process(delta)

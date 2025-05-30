@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://c7wm5ii2o1xsq"]
+[gd_scene load_steps=9 format=3 uid="uid://c7wm5ii2o1xsq"]
 
 [ext_resource type="PackedScene" uid="uid://ukjqswxrkxpj" path="res://gameplay/camera/camera_point.tscn" id="1_8eafk"]
+[ext_resource type="PackedScene" uid="uid://dxxxmjm06obta" path="res://gameplay/hero/hero.tscn" id="2_daafw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6g0di"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -44,3 +45,6 @@ shape = SubResource("ConvexPolygonShape3D_6g0di")
 
 [node name="Camera Point" parent="." instance=ExtResource("1_8eafk")]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+
+[node name="Hero" parent="." node_paths=PackedStringArray("camera_point") instance=ExtResource("2_daafw")]
+camera_point = NodePath("../Camera Point")
