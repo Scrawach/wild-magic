@@ -43,8 +43,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_nlo4y")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Blocked Ground/StaticBody3D"]
 shape = SubResource("ConvexPolygonShape3D_6g0di")
 
-[node name="Camera Point" parent="." instance=ExtResource("1_8eafk")]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
-
 [node name="Hero" parent="." node_paths=PackedStringArray("camera_point") instance=ExtResource("2_daafw")]
 camera_point = NodePath("../Camera Point")
+
+[node name="Camera Point" parent="." node_paths=PackedStringArray("follow_target") instance=ExtResource("1_8eafk")]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0)
+follow_target = NodePath("../Hero")
