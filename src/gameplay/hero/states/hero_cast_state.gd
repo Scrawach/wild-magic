@@ -3,6 +3,7 @@ extends State
 
 @export var input: PlayerInput
 @export var console: MagicConsole
+@export var caster: SpellCaster
 
 func enter() -> void:
 	console.enable()
@@ -12,6 +13,5 @@ func exit() -> void:
 
 func process(delta: float) -> void:
 	if input.is_casting():
-		var spell: String = console.get_spell()
-		print("casted: %s" % spell)
+		caster.cast(console.get_spell())
 		state_machine.enter(HeroMovementState)

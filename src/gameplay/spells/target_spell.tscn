@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1s2gmv6fxr4a"]
+
+[ext_resource type="Script" uid="uid://5qnkwl8afg0g" path="res://gameplay/spells/target_spell.gd" id="1_n2ixj"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_dv8cy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n2ixj"]
+resource_local_to_scene = true
+
+[node name="Target Spell" type="Node3D"]
+script = ExtResource("1_n2ixj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_dv8cy")
+surface_material_override/0 = SubResource("StandardMaterial3D_n2ixj")

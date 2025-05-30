@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxxxmjm06obta"]
+[gd_scene load_steps=11 format=3 uid="uid://dxxxmjm06obta"]
 
 [ext_resource type="Script" uid="uid://ceawrn7dedfhq" path="res://gameplay/hero/hero.gd" id="1_x1143"]
 [ext_resource type="PackedScene" uid="uid://bdoesjr3px8hb" path="res://gameplay/hero/console/magic_console.tscn" id="2_drp30"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://d1remwgex0e1x" path="res://gameplay/hero/input/player_input.gd" id="3_14oge"]
 [ext_resource type="Script" uid="uid://cd6gd2tp3e5rx" path="res://gameplay/hero/states/hero_movment_state.gd" id="3_lkv0r"]
 [ext_resource type="Script" uid="uid://ddqf4deh1y3f8" path="res://gameplay/hero/states/hero_cast_state.gd" id="4_drp30"]
+[ext_resource type="Script" uid="uid://be6xpb42woy0l" path="res://gameplay/spells/spell_caster.gd" id="7_ygv0y"]
+[ext_resource type="PackedScene" uid="uid://c1s2gmv6fxr4a" path="res://gameplay/spells/target_spell.tscn" id="8_favdm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8eafk"]
 
@@ -26,6 +28,10 @@ mesh = SubResource("CapsuleMesh_8eafk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 visible = false
 
+[node name="Spell Point" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1)
+gizmo_extents = 1.0
+
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_yer6i")
 initial_state = NodePath("HeroMovementState")
@@ -37,12 +43,20 @@ hero = NodePath("../..")
 input = NodePath("../../PlayerInput")
 metadata/_custom_type_script = "uid://cd6gd2tp3e5rx"
 
-[node name="HeroCastState" type="Node" parent="StateMachine" node_paths=PackedStringArray("input", "console")]
+[node name="HeroCastState" type="Node" parent="StateMachine" node_paths=PackedStringArray("input", "console", "caster")]
 script = ExtResource("4_drp30")
 input = NodePath("../../PlayerInput")
 console = NodePath("../../Magic Console")
+caster = NodePath("../../SpellCaster")
 metadata/_custom_type_script = "uid://ddqf4deh1y3f8"
 
 [node name="PlayerInput" type="Node" parent="."]
 script = ExtResource("3_14oge")
 metadata/_custom_type_script = "uid://d1remwgex0e1x"
+
+[node name="SpellCaster" type="Node" parent="." node_paths=PackedStringArray("caster", "spell_point")]
+script = ExtResource("7_ygv0y")
+caster = NodePath("..")
+spell_point = NodePath("../Spell Point")
+target_spell = ExtResource("8_favdm")
+metadata/_custom_type_script = "uid://be6xpb42woy0l"
